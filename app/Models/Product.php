@@ -27,14 +27,29 @@ class Product extends Model
         'product_description',
         'product_price',
         'customer_id',
+        'image',
     ];
 
     /**
      * Define the many-to-many relationship with the Customer model.
      */
+    public function scopeFindProduct($query, $id)
+    {
+        return $query->find($id);
+    }
+
+    public function scopeWithRelationship($query, $relationship, $conditions = [])
+    {
+        return $query->whereHas($relationship, function ($query) use ($conditions) {
+            foreach ($conditions as $key => $value) {
+                $query->where($key, $value);
+            }
+        });
+    }
+    
     public function customer()
-{
-    return $this->belongsTo(Customer::class,  'customer_id');
-}
+    {
+        return $this->belongsTo(Customer::class,  'customer_id');
+    }
 
 }

@@ -29,7 +29,7 @@
 
         <!-- Header Section -->
         <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-semibold text-gray-800">All Products</h2>
+            <h2 class="text-2xl font-semibold text-gray-800"></h2>
 
             <!-- Create New Product Button -->
             <a href="{{ route('create.product') }}"
@@ -43,6 +43,7 @@
             <table id="products-table" class="w-full border-collapse table-auto">
                 <thead class="bg-indigo-600 ">
                     <tr class="m-3">
+                        <th class="px-4 py-2 text-left text-white">Image</th>
                         <th class="px-4 py-2 text-left text-white">Product Name</th>
                         <th class="px-4 py-2 text-left text-white">Description</th>
                         <th class="px-4 py-2 text-left text-white">Price</th>
@@ -74,6 +75,7 @@
                 serverSide: true,
                 ajax: '{{ route('view.products') }}',
                 columns: [
+                    { data: 'product_image', name: 'product_image', orderable: false, searchable: false },
                     { data: 'product_name', name: 'product_name' },
                     { data: 'product_description', name: 'product_description' },
                     { data: 'product_price', name: 'product_price' },

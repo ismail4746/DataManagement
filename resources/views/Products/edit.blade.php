@@ -2,16 +2,37 @@
     <x-slot:heading>
         Edit Product
 </x-slot:heading>
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
 
-            <form action="{{ route('update.product', ['id' => $product->product_id]) }}" method="POST" class="space-y-6">
+            <form action="{{ route('update.product', ['id' => $product->product_id]) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
 
+                <div>
+                    <label for="product_image" class="block mb-1 text-sm font-medium text-gray-700">Product Image</label>
+                    <input
+                        type="file"
+                        name="product_image"
+                        id="product_image"
+                        class="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 @error('product_image') border-red-500 @enderror"
+                    >
+                    @error('product_image')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+
+                    <!-- Display Current Product Image -->
+                    @if ($product->image_path)
+                        <div class="mt-4">
+                            <p class="text-sm text-gray-500">Current Image:</p>
+                            <img src="{{ asset('storage/' . $product->image_path) }}" alt="Product Image" class="w-24 h-24 rounded-lg">
+                        </div>
+                    @endif
+                </div>
+
                 <!-- Product Name -->
                 <div>
-                    <label for="product_name" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                    <label for="product_name" class="block mb-1 text-sm font-medium text-gray-700">Product Name</label>
                     <input
                         type="text"
                         name="product_name"
@@ -27,7 +48,7 @@
 
                 <!-- Product Description -->
                 <div>
-                    <label for="product_description" class="block text-sm font-medium text-gray-700 mb-1">Product Description</label>
+                    <label for="product_description" class="block mb-1 text-sm font-medium text-gray-700">Product Description</label>
                     <textarea
                         name="product_description"
                         id="product_description"
@@ -41,7 +62,7 @@
 
                 <!-- Product Price -->
                 <div>
-                    <label for="product_price" class="block text-sm font-medium text-gray-700 mb-1">Product Price</label>
+                    <label for="product_price" class="block mb-1 text-sm font-medium text-gray-700">Product Price</label>
                     <input
                         type="number"
                         name="product_price"
@@ -57,7 +78,7 @@
 
                 <!-- Customer -->
                 <div>
-                    <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-1">Customer</label>
+                    <label for="customer_id" class="block mb-1 text-sm font-medium text-gray-700">Customer</label>
                     <select
                         id="customer_id"
                         name="customer_id"
@@ -82,7 +103,7 @@
                 <div class="text-center">
                     <button
                         type="submit"
-                        class="w-full px-6 py-3 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        class="w-full px-6 py-3 text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Update Product
                     </button>
