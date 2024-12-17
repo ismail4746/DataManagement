@@ -11,6 +11,11 @@ use App\Models\Customer;
 
 class AuthController extends Controller
 {
+    public function index(){
+        $customer = Auth::user();
+        return view('home', compact('customer'));
+    }
+
     public function showLogin(){
         return view('login');
     }
@@ -70,9 +75,6 @@ protected function authenticated(Request $request, $user)
 }
 
 
-    public function index(){
-        return view('home');
-    }
 }
 
 

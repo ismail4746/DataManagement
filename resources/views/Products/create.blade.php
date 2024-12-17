@@ -9,7 +9,10 @@
                     <label for="product_image" class="block mb-2 text-lg font-medium text-gray-700">Product Image:</label>
                     <input type="file" name="product_image" id="product_image" accept="image/*"
                         class="w-full p-3 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
+                        @error('product_image')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                    </div>
                 <!-- Product Name -->
                 <div class="mb-6">
                     <label for="product_name" class="block mb-2 text-lg font-medium text-gray-700">Product Name:</label>
